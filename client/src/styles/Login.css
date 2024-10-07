@@ -14,14 +14,15 @@
   }
   
   .login-left img{
-    width: 400px;
+    width: 1000px;
+    height: 742px;
   }
   
   .login-right{
   
     height: 100vh;
   
-    flex-grow: 1;
+    flex-grow: 10;
   
   
   }

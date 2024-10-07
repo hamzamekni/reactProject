@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "../assets/image.png";
+import Image from "../assets/image1.png";
 import Logo from "../assets/logo.png";
 import GoogleSvg from "../assets/icons8-google.svg";
 import { FaEye } from "react-icons/fa6";
@@ -35,11 +35,11 @@ const Login = () => {
           password
         };
         try{
-        const response = await axios.post("http://localhost:3000/api/v1/register", formData);
+        const response = await axios.post("http://localhost:4000/api/v1/register", formData);
          toast.success("Registration successfull");
          navigate("/login");
        }catch(err){
-         toast.error(err.message);
+         toast.error(res.message);
        }
       }else{
         toast.error("Passwords don't match");
@@ -68,7 +68,7 @@ const Login = () => {
       <div className="register-right">
         <div className="register-right-container">
           <div className="register-logo">
-            <img src={Logo} alt="" />
+            <img src="" alt="" />
           </div>
           <div className="register-center">
             <h2>Welcome to our website!</h2>
