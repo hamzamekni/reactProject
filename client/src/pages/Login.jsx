@@ -40,11 +40,11 @@ const Login = () => {
         // Decode token to get the user's role
         const decodedToken = jwtDecode(token); // Use decode function
         console.log(decodedToken.role)
-        const userRole = decodedToken.role; // Assuming the role is stored in the token as 'role'
+        const userRole = decodedToken.role; 
   
         toast.success("Login successful");
   
-        // Check the role before navigating
+        
         if (userRole === 'ADMIN') {
           navigate("/admin-dashboard");
         } else if (userRole === 'USER') {
