@@ -26,6 +26,11 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please provide password'],
         minlength: 3
     },
+    role: {
+        type: String,
+        enum: ['EMPLOYEE', 'RH', 'ADMIN'],
+        default: 'EMPLOYEE'  
+    }
 });
 
 UserSchema.pre("save", async function(){

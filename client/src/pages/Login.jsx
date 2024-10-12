@@ -7,6 +7,7 @@ import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     let email = e.target.email.value;
     let password = e.target.password.value;
-
+  
     if (email.length > 0 && password.length > 0) {
       const formData = {
         email,
@@ -30,9 +31,28 @@ const Login = () => {
           "http://localhost:4000/api/v1/login",
           formData
         );
-        localStorage.setItem('auth', JSON.stringify(response.data.token));
-        toast.success("Login successfull");
-        navigate("/dashboard");
+        
+        const token = response.data.token;
+        
+        // Store token in localStorage
+        localStorage.setItem('auth', JSON.stringify(token));
+        
+        // Decode token to get the user's role
+        const decodedToken = jwtDecode(token); // Use decode function
+        console.log(decodedToken.role)
+        const userRole = decodedToken.role; // Assuming the role is stored in the token as 'role'
+  
+        toast.success("Login successful");
+  
+        // Check the role before navigating
+        if (userRole === 'ADMIN') {
+          navigate("/admin-dashboard");
+        } else if (userRole === 'USER') {
+          navigate("/user-dashboard");
+        } else {
+          navigate("/dashboard");
+        }
+  
       } catch (err) {
         console.log(err);
         toast.error(err.message);
